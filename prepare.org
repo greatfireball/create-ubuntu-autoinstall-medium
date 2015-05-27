@@ -136,3 +136,19 @@ sed -i '/append/s+--+ks=file:/var/ks-install/ks.cfg preseed/file=/cdrom/ks.prese
 
 #+results:
 
+** Recreate the ISO file
+#+BEGIN_SRC sh
+  mkisofs \
+      -r \
+      -V "Custom Ubuntu Netboot image" \
+      -cache-inodes \
+      -J \
+      -l \
+      -b isolinux.bin \
+      -c boot.cat \
+      -no-emul-boot \
+      -boot-load-size 4 \
+      -boot-info-table \
+      -o custom.iso \
+      custom
+#+END_SRC
