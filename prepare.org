@@ -35,3 +35,11 @@ chmod -R +Xrw custom
 
 #+results:
 
+** Uncompress the initrd.gz
+#+BEGIN_SRC sh :dir ./custom/
+mkdir initrd
+cd initrd
+zcat ../initrd.gz | cpio -id
+#+END_SRC
+
+#+results:
