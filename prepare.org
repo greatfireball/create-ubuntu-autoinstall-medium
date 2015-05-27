@@ -129,3 +129,10 @@ rm -rf initrd
 
 #+results:
 
+** Changing the txt.cfg file to add kickstart file
+#+BEGIN_SRC sh :dir ./custom/
+sed -i '/append/s+--+ks=file:/var/ks-install/ks.cfg preseed/file=/cdrom/ks.preseed --+g' txt.cfg
+#+END_SRC
+
+#+results:
+
