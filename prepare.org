@@ -16,3 +16,21 @@ md5sum -c MD5SUMS
 #+results:
 : ./mini.iso: OK
 
+** Mount the CD image and copy the content
+#+BEGIN_SRC sh
+mkdir iso
+#+END_SRC
+
+#+results:
+
+#+BEGIN_SRC sh :dir /sudo::
+sudo mount -o loop -t iso9660 mini.iso iso
+#+END_SRC
+
+#+BEGIN_SRC sh
+cp -R iso custom
+chmod -R +Xrw custom
+#+END_SRC
+
+#+results:
+
