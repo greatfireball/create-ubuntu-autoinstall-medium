@@ -1,5 +1,9 @@
 * Generate a new mini.iso with autoinstallation capabilities
 
+** References
+I used the following links to get the required information:
+ - http://overtag.dk/wordpress/2013/08/ubuntu-kickstart-preseeding-and-wireless-wlan/
+
 ** Download 14.04.2 mini.iso
 
 Download a trusty mini.iso and check if the download went well
