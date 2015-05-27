@@ -117,3 +117,15 @@ apt-get update
 
 apt-get dist-upgrade --assume-yes
 #+END_SRC
+
+** Repacking of the initrd.gz
+#+BEGIN_SRC sh :dir ./custom/
+rm ./initrd.gz
+cd initrd
+find . | cpio --create --format='newc' | gzip > ../initrd.gz
+cd ..
+rm -rf initrd
+#+END_SRC
+
+#+results:
+
