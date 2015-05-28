@@ -117,6 +117,7 @@ git
 mkdir -p /home2
 sudo usermod  -d /home2  -m  genomics
 
+# prepare NIS/automount
 date +"# [%Y-%m-%d %H:%M:%S] Added by the kickstart script to add automount capabilities
 automount: nis files" >> /etc/nsswitch.conf
 
