@@ -115,8 +115,7 @@ git
 %post
 # move genomics home directory to a separate folder
 mkdir -p /home2
-cp -R /home/genomics /home2/
-/bin/sed -i '/^genomics:/s/\/home\/genomics/\/home2\/genomics/' /etc/passwd
+sudo usermod  -d /home2  -m  genomics
 
 date +"# [%Y-%m-%d %H:%M:%S] Added by the kickstart script to add automount capabilities
 automount: nis files" >> /etc/nsswitch.conf
