@@ -77,7 +77,7 @@ timezone Europe/Berlin
 #Root password
 rootpw --disabled
 #Initial user
-user genomics --fullname "Genomics administrator" --iscrypted --password $6$rXZRlzL24D$UeXGSOwb6KATwUqfxyCIBs4A1mzSp.tTu/z9WGY9mGC6GVKXNuQNylmLbVTQdk2j5/UsN.nDXCr/wfvxd24qa1
+user neuobioadmin --fullname "Neurobio administrator" --iscrypted --password '$6$p7DIR1BGX$Q.k4/AnEiNOqF45mzbafjRl7RB4DciksJK4vjOHkVAUCPchPcpkJJ5ngEvo66qOiLnJeNL6VF2GhlGxzoMNeh1'
 #Reboot after installation
 reboot
 #Use text mode install
@@ -97,7 +97,6 @@ part swap --size 12000 --asprimary
 part / --fstype ext4 --size 1 --grow --asprimary
 #System authorization infomation
 auth  --useshadow  --enablemd5 
-#--enablenis --nisdomain bioinformatik --nisserver 132.187.22.129
 # Network
 network --bootproto=dhcp --device=eth0
 #Firewall configuration
@@ -108,23 +107,9 @@ skipx
 %packages
 openssh-server
 openssh-client
-autofs
-nfs-common
 git
 
 %post
-# move genomics home directory to a separate folder
-mkdir -p /home2
-sudo usermod  -d /home2  -m  genomics
-
-# set the genomics password to expired to trigger a password reset on
-# first login
-passwd -e genomics
-
-# prepare NIS/automount
-date +"# [%Y-%m-%d %H:%M:%S] Added by the kickstart script to add automount capabilities
-automount: nis files" >> /etc/nsswitch.conf
-
 ## Update packages and keys list
 apt-key update
 apt-get update
@@ -154,7 +139,7 @@ sed -i '/append/s+--+ks=file:/var/ks-install/ks.cfg preseed/file=/cdrom/ks.prese
 #+BEGIN_SRC sh
   mkisofs \
       -r \
-      -V "Custom Ubuntu Netboot image" \
+      -V "Custom NeuroBio Install Image" \
       -cache-inodes \
       -J \
       -l \
@@ -163,6 +148,6 @@ sed -i '/append/s+--+ks=file:/var/ks-install/ks.cfg preseed/file=/cdrom/ks.prese
       -no-emul-boot \
       -boot-load-size 4 \
       -boot-info-table \
-      -o custom.iso \
+      -o neurobiocustom.iso \
       custom
 #+END_SRC
