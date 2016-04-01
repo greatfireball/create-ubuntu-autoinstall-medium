@@ -99,7 +99,7 @@ clearpart --all --initlabel
 part swap --size 12000 --asprimary
 part / --fstype ext4 --size 1 --grow --asprimary
 #System authorization infomation
-auth  --useshadow  --enablemd5 --enablenis --nisdomain bioinformatik --nisserver 132.187.22.129
+auth  --useshadow  --enablemd5 #--enablenis --nisdomain bioinformatik --nisserver 132.187.22.129
 # Network
 network --bootproto=dhcp --device=eth0
 #Firewall configuration
@@ -110,8 +110,8 @@ skipx
 %packages
 openssh-server
 openssh-client
-autofs
-nfs-common
+#autofs
+#nfs-common
 git
 
 %post
@@ -137,14 +137,14 @@ fi
 passwd -e genomics 2>&1 | tee --append /root/post_install.log
 
 # prepare NIS/automount
-date +"# [%Y-%m-%d %H:%M:%S] Added by the kickstart script to add automount capabilities
-automount: nis files" >> /etc/nsswitch.conf
+#date +"# [%Y-%m-%d %H:%M:%S] Added by the kickstart script to add automount capabilities
+#automount: nis files" >> /etc/nsswitch.conf
 
 ## Update packages and keys list
-apt-key update
-apt-get update
+apt-key update 2>&1 | tee --append /root/post_install.log
+apt-get update 2>&1 | tee --append /root/post_install.log
 
-apt-get dist-upgrade --assume-yes
+apt-get dist-upgrade --assume-yes 2>&1 | tee --append /root/post_install.log
 #+END_SRC
 
 ** Repacking of the initrd.gz
@@ -161,6 +161,13 @@ rm -rf initrd
 ** Changing the txt.cfg file to add kickstart file
 #+BEGIN_SRC sh :dir ./custom/
 sed -i '/append/s+--+ks=file:/var/ks-install/ks.cfg preseed/file=/cdrom/ks.preseed --+g' txt.cfg
+#+END_SRC
+
+#+results:
+
+** Adding a timeout to the command file to pick default intallation after 10 s
+#+BEGIN_SRC sh :dir ./custom/
+sed -i '$ a TIMEOUT 10' txt.cfg
 #+END_SRC
 
 #+results:
