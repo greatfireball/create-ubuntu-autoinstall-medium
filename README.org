@@ -4,7 +4,10 @@
 I used the following links to get the required information:
  - http://overtag.dk/wordpress/2013/08/ubuntu-kickstart-preseeding-and-wireless-wlan/
  - http://www.thegeekstuff.com/2009/07/how-to-view-modify-and-recreate-initrd-img/
+ - http://askubuntu.com/questions/122505/how-do-i-create-a-completely-unattended-install-of-ubuntu
+ - https://help.ubuntu.com/community/KickstartCompatibility
 
+** 
 ** Download 14.04.2 mini.iso
 
 Download a trusty mini.iso and check if the download went well
@@ -165,3 +168,7 @@ sed -i '/append/s+--+ks=file:/var/ks-install/ks.cfg preseed/file=/cdrom/ks.prese
       -o custom.iso \
       custom
 #+END_SRC
+
+** Bugs
+*** TODO Move folder of genomics
+*** TODO Perform rest of Installation after first boot
