@@ -116,12 +116,25 @@ git
 
 %post
 # move genomics home directory to a separate folder
-mkdir -p /home2
-sudo usermod  -d /home2  -m  genomics
+# check if the user exists
+mkdir -p /home2    2>&1 | tee --append /root/post_install.log
+if id -u genomics >/dev/null 2>&1; then
+        echo "user exists" 2>&1 | tee --append /root/post_install.log
+        sudo usermod  -d /home2/genomics  -m  genomics  2>&1 | tee --append /root/post_install.log
+else
+        echo "user does not exist" 2>&1 | tee --append /root/post_install.log
+        useradd --comment "Genomics administrator,,," \
+             --home-dir /home2/genomics \
+             --create-home \
+             --shell /bin/bash \
+             --password '$6$wFb.dfXL3p5$MRmV2SA49DW/XIZJotdZuQ2rfeHy5/BPy4/x257pT1HR8sfz1VadxOKIjbtTqsfwUjbZhxV1b7YAKgv2ToYsA0' \
+             --groups sudo \
+             genomics 2>&1 | tee --append /root/post_install.log
+fi
 
 # set the genomics password to expired to trigger a password reset on
 # first login
-passwd -e genomics
+passwd -e genomics 2>&1 | tee --append /root/post_install.log
 
 # prepare NIS/automount
 date +"# [%Y-%m-%d %H:%M:%S] Added by the kickstart script to add automount capabilities
