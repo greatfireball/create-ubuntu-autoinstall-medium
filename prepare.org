@@ -28,7 +28,10 @@ mkdir iso
 sudo mount -o loop -t iso9660 mini.iso iso
 #+END_SRC
 
+#+results:
+
 #+BEGIN_SRC sh
+if [ -d custom ]; then rm -rf custom; fi
 cp -R iso custom
 chmod -R +Xrw custom
 #+END_SRC
@@ -77,7 +80,7 @@ timezone Europe/Berlin
 #Root password
 rootpw --disabled
 #Initial user
-user neuobioadmin --fullname "Neurobio administrator" --iscrypted --password '$6$p7DIR1BGX$Q.k4/AnEiNOqF45mzbafjRl7RB4DciksJK4vjOHkVAUCPchPcpkJJ5ngEvo66qOiLnJeNL6VF2GhlGxzoMNeh1'
+user neurobioadmin --fullname "Neurobio administrator" --iscrypted --password $6$QVlvODE0Bz91D2kg$nT5N5IqahrdeGLKSHlKOs1ZQ6HbuNbX5VjRrD1ZqCAnSgpfpW8rDH4KB6j0B7XoKddKQAi0cSzYOL69i1jDWb1
 #Reboot after installation
 reboot
 #Use text mode install
@@ -98,7 +101,7 @@ part / --fstype ext4 --size 1 --grow --asprimary
 #System authorization infomation
 auth  --useshadow  --enablemd5 
 # Network
-network --bootproto=dhcp --device=eth0
+network --bootproto=dhcp --device=p29p1
 #Firewall configuration
 firewall --enabled --ssh
 #Do not configure the X Window System
@@ -151,3 +154,5 @@ sed -i '/append/s+--+ks=file:/var/ks-install/ks.cfg preseed/file=/cdrom/ks.prese
       -o neurobiocustom.iso \
       custom
 #+END_SRC
+
+#+results:
