@@ -39,7 +39,8 @@ chmod -R +Xrw custom
 #+results:
 
 ** Uncompress the initrd.gz
-#+BEGIN_SRC sh :dir ./custom/
+#+BEGIN_SRC sh
+cd custom
 mkdir initrd
 cd initrd
 zcat ../initrd.gz | cpio -id
@@ -48,7 +49,7 @@ zcat ../initrd.gz | cpio -id
 #+results:
 
 ** Adding a kickstart file to the initrd folder
-#+BEGIN_SRC sh :dir ./custom/initrd/
+#+BEGIN_SRC sh
 mkdir -p var/ks-install/
 #+END_SRC
 
@@ -127,7 +128,7 @@ else
              --home-dir /home2/genomics \
              --create-home \
              --shell /bin/bash \
-             --password '$6$wFb.dfXL3p5$MRmV2SA49DW/XIZJotdZuQ2rfeHy5/BPy4/x257pT1HR8sfz1VadxOKIjbtTqsfwUjbZhxV1b7YAKgv2ToYsA0' \
+             --password '$6$rXZRlzL24D$UeXGSOwb6KATwUqfxyCIBs4A1mzSp.tTu/z9WGY9mGC6GVKXNuQNylmLbVTQdk2j5/UsN.nDXCr/wfvxd24qa1' \
              --groups sudo \
              genomics 2>&1 | tee --append /root/post_install.log
 fi
@@ -148,7 +149,8 @@ apt-get dist-upgrade --assume-yes 2>&1 | tee --append /root/post_install.log
 #+END_SRC
 
 ** Repacking of the initrd.gz
-#+BEGIN_SRC sh :dir ./custom/
+#+BEGIN_SRC sh
+cd ..
 rm ./initrd.gz
 cd initrd
 find . | cpio --create --format='newc' | gzip > ../initrd.gz
@@ -167,7 +169,7 @@ sed -i '/append/s+--+ks=file:/var/ks-install/ks.cfg preseed/file=/cdrom/ks.prese
 
 ** Adding a timeout to the command file to pick default intallation after 10 s
 #+BEGIN_SRC sh :dir ./custom/
-sed -i '$ a TIMEOUT 10' txt.cfg
+find -type f -maxdepth 1 | xargs grep -il "timeout[[:space:]]" | sed -i 's/timeout .*/timeout 10/g'
 #+END_SRC
 
 #+results:
