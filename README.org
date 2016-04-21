@@ -172,7 +172,8 @@ sed -i '/append/s+--+ks=file:/var/ks-install/ks.cfg preseed/file=/cdrom/ks.prese
 
 ** Adding a timeout to the command file to pick default intallation after 10 s
 #+BEGIN_SRC sh :tangle iso-creation.sh
-find -type f -maxdepth 1 | xargs grep -il "timeout[[:space:]]" | sed -i 's/timeout .*/timeout 10/g'
+find -maxdepth 1 -type f | xargs --no-run-if-empty grep -il "timeout[[:space:]]" | xargs --no-run-if-empty sed -i 's/timeout .*/timeout 10/g'
+cd ..
 #+END_SRC
 
 #+results:
