@@ -8,12 +8,12 @@ I used the following links to get the required information:
  - https://help.ubuntu.com/community/KickstartCompatibility
 
 ** 
-** Download 14.04.2 mini.iso
-
+** Download 16.04 mini.iso
 Download a trusty mini.iso and check if the download went well
 #+BEGIN_SRC sh :shebang "#!/bin/bash" :tangle iso-creation.sh
-wget --quiet 'http://archive.ubuntu.com/ubuntu/dists/trusty/main/installer-amd64/current/images/netboot/mini.iso'
-wget --quiet -O - 'http://archive.ubuntu.com/ubuntu/dists/trusty/main/installer-amd64/current/images/MD5SUMS' | grep "netboot/mini.iso" | sed 's/netboot\///g' > MD5SUMS
+ubunturelease="xenial"
+wget --quiet 'http://archive.ubuntu.com/ubuntu/dists/"$ubunturelease"/main/installer-amd64/current/images/netboot/mini.iso'
+wget --quiet -O - 'http://archive.ubuntu.com/ubuntu/dists/"$ubunturelease"/main/installer-amd64/current/images/MD5SUMS' | grep "netboot/mini.iso" | sed 's/netboot\///g' > MD5SUMS
 md5sum -c MD5SUMS
 #+END_SRC
 
@@ -191,7 +191,7 @@ cd ..
       -no-emul-boot \
       -boot-load-size 4 \
       -boot-info-table \
-      -o custom.iso \
+      -o custom_"$ubunturelease".iso \
       custom
 #+END_SRC
 
