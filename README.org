@@ -12,8 +12,8 @@ I used the following links to get the required information:
 Download a trusty mini.iso and check if the download went well
 #+BEGIN_SRC sh :shebang "#!/bin/bash" :tangle iso-creation.sh
 ubunturelease="xenial"
-wget --quiet 'http://archive.ubuntu.com/ubuntu/dists/"$ubunturelease"/main/installer-amd64/current/images/netboot/mini.iso'
-wget --quiet -O - 'http://archive.ubuntu.com/ubuntu/dists/"$ubunturelease"/main/installer-amd64/current/images/MD5SUMS' | grep "netboot/mini.iso" | sed 's/netboot\///g' > MD5SUMS
+wget --quiet 'http://archive.ubuntu.com/ubuntu/dists/'"$ubunturelease"'/main/installer-amd64/current/images/netboot/mini.iso'
+wget --quiet -O - 'http://archive.ubuntu.com/ubuntu/dists/'"$ubunturelease"'/main/installer-amd64/current/images/MD5SUMS' | grep "netboot/mini.iso" | sed 's/netboot\///g' > MD5SUMS
 md5sum -c MD5SUMS
 #+END_SRC
 
