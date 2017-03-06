@@ -95,7 +95,7 @@ text
 #Install OS instead of upgrade
 install
 #Use CDROM installation media
-url --url ftp://ftp.halifax.rwth-aachen.de/ubuntu/
+url --url http://de.archive.ubuntu.com/ubuntu/
 #System bootloader configuration
 bootloader --location=mbr
 #Clear the Master Boot Record
